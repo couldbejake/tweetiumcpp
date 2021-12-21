@@ -1,3 +1,5 @@
+/* PLEASE DON'T COPY! */
+
 #include <mysqlx/xapi.h>
 
 /*
