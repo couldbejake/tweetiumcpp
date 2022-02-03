@@ -2,7 +2,7 @@
 
 #include <mysqlx/xapi.h>
 
-/*
+
 #include "simdjson.h"
 #include <iostream>
 #include<map>
