@@ -1,11 +1,5 @@
-/* PLEASE DON'T COPY! */
-
-#include <mysqlx/xapi.h>
-
-
-#include "simdjson.h"
 #include <iostream>
-#include<map>
+#include <map>
 #include <iostream>
 #include <string>
 #include <chrono>
@@ -16,7 +10,6 @@
 
 
 using namespace boost::posix_time;
-using namespace simdjson;
 using namespace std;
 using boost::property_tree::ptree;
 
