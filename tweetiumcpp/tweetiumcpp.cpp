@@ -8,10 +8,15 @@
 #include <boost/foreach.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 
+#pragma warning(disable : 4996) //_CRT_SECURE_NO_WARNINGS
 
 using namespace boost::posix_time;
 using namespace std;
 using boost::property_tree::ptree;
+
+void debug_print(string text) {
+    std::cout << text << std::endl;
+}
 
 template <typename T = boost::property_tree::ptree>
 T element_at(ptree const& pt, std::string name, size_t n) {
@@ -33,7 +38,7 @@ size_t curlwrite_callback(void* contents, size_t size, size_t nmemb, std::string
 }
 
 
-
+/*
 std::string get_guest_token()
 {
     CURL* curl;
@@ -73,7 +78,7 @@ std::string get_guest_token()
     }
 
     return "";
-}
+}*/
 
 
 std::string ReplaceAll(std::string str, const std::string& from, const std::string& to) {
@@ -153,6 +158,7 @@ public:
 
     Tweet get_tweet_at(int);
     string get_cursor();
+    void print_tweets();
 
     TweetResponse(ptree d) {
         ptree tweets_raw_data = d.get_child("globalObjects.tweets");
@@ -181,6 +187,13 @@ string TweetResponse::get_cursor() {
 
 Tweet TweetResponse::get_tweet_at(int pos) {
     return this->tweets.at(pos);
+}
+
+void TweetResponse::print_tweets() {
+    for (int i = 0; i < this->get_tweet_count(); i++) {
+        Tweet t = this->get_tweet_at(i);
+        std::cout << t.text << std::endl;
+    }
 }
 
 TweetResponse make_tweet_request(std::string url) {
@@ -220,18 +233,15 @@ TweetResponse make_tweet_request(std::string url) {
         return tweetResponse;
 
 
-
-
-
     }
 }
 
-TweetResponse get_tweets(std::string search_query, string cursor = "") {
+TweetResponse prep_tweet_request(std::string search_query, string cursor = "") {
+
     std::vector<std::pair<std::string, std::string>> query_params;
     query_params.push_back(std::make_pair("q", search_query.c_str()));
     query_params.push_back(std::make_pair("src", "typed_query"));
     query_params.push_back(std::make_pair("f", "live"));
-    
     
     if (cursor != "") {
         query_params.push_back(std::make_pair("cursor", cursor));
@@ -243,44 +253,10 @@ TweetResponse get_tweets(std::string search_query, string cursor = "") {
     
 }
 
-void doThread(string search_query, double longitude, double latitude, string until = "", string since = "") {
-    try {
-
-        string cursor = "";
-        int total_tweet_count = 0;
-        bool done = false;
-
-        while (!done) {
-            std::stringstream ss;
-
-            if (until == "" && since == "") {
-                ss << search_query << " geocode:" << longitude << "," << latitude << ",55.5km";
-            }
-            else {
-                ss << search_query << " until:" << until << " since:" << since << " geocode:" << longitude << "," << latitude << ",55.5km";
-            }
-
-            string tweetParams = ss.str();
-
-            cout << tweetParams << endl;
-            TweetResponse tweetResponse = get_tweets(tweetParams, cursor);
-            total_tweet_count += tweetResponse.get_tweet_count();
-            cursor = tweetResponse.get_cursor();
-            done = tweetResponse.is_last_request;
-
-            std::cout << "Total tweets loaded: "  << total_tweet_count << endl;
-        }
-
-    }
-    catch (std::exception const& ex)
-    {
-        cout << ("Can't init settings. %s", ex.what());
-    }
-}
 
 int date_to_epoch(std::string date) {
     std::stringstream ss;
-    ss<< date << " 00:00:00";
+    ss << date << " 00:00:00";
     std::string ts(ss.str());
     ptime t(time_from_string(ts));
     ptime start(boost::gregorian::date::date(1970, 1, 1));
@@ -296,7 +272,56 @@ string epoch_to_date(int epochTime) {
     return ss.str();
 }
 
+void get_tweets(string search_query, string since = "", string until = "", double longitude = 0, double latitude = 0){
+    try {
 
+        string cursor = "";
+        int total_tweet_count = 0;
+        bool done = false;
+
+        while (!done) {
+            std::stringstream ss;
+
+            ss << search_query;
+
+            if (since != "" && until != "") {
+                ss << " until:" << until << " since:" << since << " ";
+            }
+
+            if (longitude != 0 && latitude != 0) {
+                ss << " geocode:" << longitude << "," << latitude << ",55.5km ";
+            }
+
+            string tweetParams = ss.str();
+            
+            TweetResponse tweetResponse = prep_tweet_request(tweetParams, cursor);
+
+            tweetResponse.print_tweets();
+
+            total_tweet_count += tweetResponse.get_tweet_count();
+            cursor = tweetResponse.get_cursor();
+            done = tweetResponse.is_last_request;
+            
+            std::cout << "Total tweets loaded: "  << total_tweet_count << endl;
+        }
+
+    }
+    catch (std::exception const& ex)
+    {
+        cout << ("Can't init settings. %s", ex.what());
+    } 
+}
+
+
+
+int main() {
+    get_tweets("btc");
+}
+
+
+
+
+/*-
 int main() {
 
     std::string scan_from_date = "2010-01-01";
@@ -330,34 +355,22 @@ int main() {
     
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
