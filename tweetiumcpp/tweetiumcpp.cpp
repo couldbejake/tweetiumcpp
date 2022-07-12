@@ -7,8 +7,9 @@
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/foreach.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
+#include <regex>
 
-#pragma warning(disable : 4996) //_CRT_SECURE_NO_WARNINGS
+//#pragma warning(disable : 4996) //_CRT_SECURE_NO_WARNINGS
 
 using namespace boost::posix_time;
 using namespace std;
@@ -192,7 +193,10 @@ Tweet TweetResponse::get_tweet_at(int pos) {
 void TweetResponse::print_tweets() {
     for (int i = 0; i < this->get_tweet_count(); i++) {
         Tweet t = this->get_tweet_at(i);
-        std::cout << t.text << std::endl;
+
+        std::string testString(t.text);
+        std::regex e("([^\n]|^)\n([^\n]|$)");
+        std::cout << "\033[3;104;30m" << " - " << "\033[0m\t\t" <<  std::regex_replace(testString, e, "$1 $2") << std::endl;
     }
 }
 
@@ -254,24 +258,6 @@ TweetResponse prep_tweet_request(std::string search_query, string cursor = "") {
 }
 
 
-int date_to_epoch(std::string date) {
-    std::stringstream ss;
-    ss << date << " 00:00:00";
-    std::string ts(ss.str());
-    ptime t(time_from_string(ts));
-    ptime start(boost::gregorian::date::date(1970, 1, 1));
-    time_duration dur = t - start;
-    time_t epoch = dur.total_seconds();
-    return epoch;
-}
-
-string epoch_to_date(int epochTime) {
-    std::time_t secsSinceEpoch = epochTime;
-    std::stringstream ss;
-    ss << std::put_time(std::localtime(&secsSinceEpoch), "%F");
-    return ss.str();
-}
-
 void get_tweets(string search_query, string since = "", string until = "", double longitude = 0, double latitude = 0){
     try {
 
@@ -302,7 +288,7 @@ void get_tweets(string search_query, string since = "", string until = "", doubl
             cursor = tweetResponse.get_cursor();
             done = tweetResponse.is_last_request;
             
-            std::cout << "Total tweets loaded: "  << total_tweet_count << endl;
+            std::cout << "\033[3;43;30m" << "Total tweets loaded: "  << total_tweet_count << "\033[0m\t\t" << endl;
         }
 
     }
@@ -312,11 +298,41 @@ void get_tweets(string search_query, string since = "", string until = "", doubl
     } 
 }
 
+int date_to_epoch(std::string date) {
+    std::stringstream ss;
+    ss << date << " 00:00:00";
+    std::string ts(ss.str());
+    ptime t(time_from_string(ts));
+    ptime start(boost::gregorian::date::date(1970, 1, 1));
+    time_duration dur = t - start;
+    time_t epoch = dur.total_seconds();
+    return epoch;
+}
 
+string epoch_to_date(int epochTime) {
+    std::stringstream str;
+    boost::posix_time::time_facet* facet = new boost::posix_time::time_facet("%Y-%m-%d");
+    str.imbue(std::locale(str.getloc(), facet));
+    str << boost::posix_time::from_time_t(epochTime);
+    return str.str();
+}
+
+string get_current_date() {
+    std::stringstream str;
+    boost::posix_time::time_facet* facet = new boost::posix_time::time_facet("%Y-%m-%d");
+    str.imbue(std::locale(str.getloc(), facet));
+    str << boost::posix_time::second_clock::universal_time(); //your time point goes here
+    return str.str();
+}
 
 int main() {
-    get_tweets("btc");
+    /*
+    std::cout << date_to_epoch("2022-07-12") << endl;
+    std::cout << epoch_to_date(1657584000) << endl;
+    std::cout << "\n\n" << get_current_date() << endl;*/
+
 }
+
 
 
 
@@ -389,4 +405,37 @@ TODO:
 
 
             // CHANGE scan_date_to to use current date
+*/
+
+
+/*
+int main(int argc, char** argv) {
+
+    printf("\n");
+    printf("\x1B[31mTexting1\033[0m\t\t");
+    printf("\x1B[32mTexting2\033[0m\t\t");
+    printf("\x1B[33mTexting3\033[0m\t\t");
+    printf("\x1B[34mTexting4\033[0m\t\t");
+    printf("\x1B[35mTexting5\033[0m\n");
+
+    printf("\x1B[36mTexting6\033[0m\t\t");
+    printf("\x1B[36mTexting7\033[0m\t\t");
+    printf("\x1B[36mTexting8\033[0m\t\t");
+    printf("\x1B[37mTexting9\033[0m\t\t");
+    printf("\x1B[93mTexting10\033[0m\n");
+
+    printf("\033[3;42;30mTexting11\033[0m\t\t");
+    printf("\033[3;43;30mTexting12\033[0m\t\t");
+    printf("\033[3;44;30mTexting13\033[0m\t\t");
+    printf("\033[3;104;30mTexting14\033[0m\t\t");
+    printf("\033[3;100;30mTexting15\033[0m\n");
+
+    printf("\033[3;47;35mTexting16\033[0m\t\t");
+    printf("\033[2;47;35mTexting17\033[0m\t\t");
+    printf("\033[1;47;35mTexting18\033[0m\t\t");
+    printf("\t\t");
+    printf("\n");
+
+    return 0;
+}
 */
