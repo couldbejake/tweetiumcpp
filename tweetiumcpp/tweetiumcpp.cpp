@@ -419,5 +419,8 @@ int main2(int argc, char** argv) {
 Additional TODOs:
 - Update searcher to use epoch time in smaller increments
 - Update searcher to geolocate tweeters.
+- Update create_url_params function to use char list instead of string https://www.geeksforgeeks.org/methods-to-concatenate-string-in-c-c-with-examples/
+- LIBCURL Optimizations as saved on bookmarks
+- Checkout cursor placement, do we get more results from using scroll:CURSOR
 
 */
