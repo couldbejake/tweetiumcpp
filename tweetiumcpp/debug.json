@@ -1,68 +1,35 @@
 {
-    "created_at": "Wed Jan 01 00:57:38 +0000 2020",
-    "id": "1212176018062159877",
-    "id_str": "1212176018062159877",
-    "text": "@btc_elite @BowermanTC @ATLtrackclub @peninsuladc @bullcityrunning Anyway, it's been a good decade. I suspect the n… https:\/\/t.co\/VZck8XsMkX",
+    "created_at": "Wed Jan 01 00:31:15 +0000 2020",
+    "id": "1212169377073815552",
+    "id_str": "1212169377073815552",
+    "text": "https:\/\/t.co\/UKYbAM6aPO  \nBitcoin investors buy bitcoins here great deal https:\/\/t.co\/vYFYabL1Qc recommendation fro… https:\/\/t.co\/O7aH87kAvs",
     "truncated": "true",
     "entities": {
         "hashtags": "",
         "symbols": "",
-        "user_mentions": [
-            {
-                "screen_name": "btc_elite",
-                "name": "BTC Elite",
-                "id": "843953075224109056",
-                "id_str": "843953075224109056",
-                "indices": [
-                    "0",
-                    "10"
-                ]
-            },
-            {
-                "screen_name": "BowermanTC",
-                "name": "Bowerman Track Club",
-                "id": "17788554",
-                "id_str": "17788554",
-                "indices": [
-                    "11",
-                    "22"
-                ]
-            },
-            {
-                "screen_name": "ATLtrackclub",
-                "name": "Atlanta Track Club",
-                "id": "46460004",
-                "id_str": "46460004",
-                "indices": [
-                    "23",
-                    "36"
-                ]
-            },
-            {
-                "screen_name": "peninsuladc",
-                "name": "Peninsula Distance Club",
-                "id": "2977178827",
-                "id_str": "2977178827",
-                "indices": [
-                    "37",
-                    "49"
-                ]
-            },
-            {
-                "screen_name": "bullcityrunning",
-                "name": "Bull City Running Co.",
-                "id": "41621539",
-                "id_str": "41621539",
-                "indices": [
-                    "50",
-                    "66"
-                ]
-            }
-        ],
+        "user_mentions": "",
         "urls": [
             {
-                "url": "https:\/\/t.co\/VZck8XsMkX",
-                "expanded_url": "https:\/\/twitter.com\/i\/web\/status\/1212176018062159877",
+                "url": "https:\/\/t.co\/UKYbAM6aPO",
+                "expanded_url": "https:\/\/twitter.com\/VHPlatinum\/status\/1212168768345919488?s=20",
+                "display_url": "twitter.com\/VHPlatinum\/sta…",
+                "indices": [
+                    "0",
+                    "23"
+                ]
+            },
+            {
+                "url": "https:\/\/t.co\/vYFYabL1Qc",
+                "expanded_url": "http:\/\/paxful.com",
+                "display_url": "paxful.com",
+                "indices": [
+                    "73",
+                    "96"
+                ]
+            },
+            {
+                "url": "https:\/\/t.co\/O7aH87kAvs",
+                "expanded_url": "https:\/\/twitter.com\/i\/web\/status\/1212169377073815552",
                 "display_url": "twitter.com\/i\/web\/status\/1…",
                 "indices": [
                     "117",
@@ -72,28 +39,28 @@
         ]
     },
     "source": "<a href=\"https:\/\/mobile.twitter.com\" rel=\"nofollow\">Twitter Web App<\/a>",
-    "in_reply_to_status_id": "1212174946677526529",
-    "in_reply_to_status_id_str": "1212174946677526529",
-    "in_reply_to_user_id": "156446721",
-    "in_reply_to_user_id_str": "156446721",
-    "in_reply_to_screen_name": "RunPR",
-    "user_id": "156446721",
-    "user_id_str": "156446721",
+    "in_reply_to_status_id": "null",
+    "in_reply_to_status_id_str": "null",
+    "in_reply_to_user_id": "null",
+    "in_reply_to_user_id_str": "null",
+    "in_reply_to_screen_name": "null",
+    "user_id": "359790148",
+    "user_id_str": "359790148",
     "geo": "null",
     "coordinates": "null",
     "place": "null",
     "contributors": "null",
-    "is_quote_status": "false",
-    "retweet_count": "0",
-    "favorite_count": "4",
-    "conversation_id": "1212167191866593281",
-    "conversation_id_str": "1212167191866593281",
+    "is_quote_status": "true",
+    "quoted_status_id": "1212168768345919488",
+    "quoted_status_id_str": "1212168768345919488",
+    "retweet_count": "1",
+    "favorite_count": "3",
+    "conversation_id": "1212169377073815552",
+    "conversation_id_str": "1212169377073815552",
     "favorited": "false",
     "retweeted": "false",
+    "possibly_sensitive": "false",
+    "possibly_sensitive_editable": "true",
     "lang": "en",
-    "supplemental_language": "null",
-    "self_thread": {
-        "id": "1212167191866593281",
-        "id_str": "1212167191866593281"
-    }
+    "supplemental_language": "null"
 }

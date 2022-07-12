@@ -4,3 +4,5 @@ tweetiumcpp/Debug/*
 .vs/*
 */.vscode
 tweetiumcpp/example.txt
+tweetiumcpp/debug.json
+tweetiumcpp/test.cpp

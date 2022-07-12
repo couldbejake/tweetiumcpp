@@ -14,8 +14,6 @@
 #include <chrono>
 #include <thread>
 
-//#pragma warning(disable : 4996) //_CRT_SECURE_NO_WARNINGS
-
 using namespace boost::posix_time;
 using namespace std;
 using boost::property_tree::ptree;
@@ -223,29 +221,6 @@ TweetResponse prep_tweet_request(std::string search_query, string cursor = "") {
     //query_params.push_back(std::make_pair("q", search_query.c_str()));
     //query_params.push_back(std::make_pair("src", "typed_query"));
     query_params.push_back(std::make_pair("f", "live"));
-    /*
-    query_params.push_back(std::make_pair("include_profile_interstitial_type", "1"));
-    query_params.push_back(std::make_pair("include_blocking", "1"));
-    query_params.push_back(std::make_pair("include_blocked_by", "1"));
-    query_params.push_back(std::make_pair("include_followed_by", "1"));
-    query_params.push_back(std::make_pair("include_want_retweets", "1"));
-    query_params.push_back(std::make_pair("include_mute_edge", "1"));
-    query_params.push_back(std::make_pair("include_can_dm", "1"));
-    query_params.push_back(std::make_pair("include_can_media_tag", "1"));
-    query_params.push_back(std::make_pair("include_ext_has_nft_avatar", "1"));
-    query_params.push_back(std::make_pair("skip_status", "1"));
-    query_params.push_back(std::make_pair("cards_platform", "Web-12"));
-    query_params.push_back(std::make_pair("include_cards", "1"));
-    query_params.push_back(std::make_pair("include_ext_alt_text", "true"));
-    query_params.push_back(std::make_pair("include_quote_count", "true"));
-    query_params.push_back(std::make_pair("include_reply_count", "1"));;
-    query_params.push_back(std::make_pair("include_ext_collab_control", "true"));
-    query_params.push_back(std::make_pair("include_entities", "true"));
-    query_params.push_back(std::make_pair("include_user_entities", "true"));
-    query_params.push_back(std::make_pair("include_ext_media_color", "true"));
-    query_params.push_back(std::make_pair("include_ext_media_availability", "true"));
-    query_params.push_back(std::make_pair("include_ext_sensitive_media_warning", "true"));
-    query_params.push_back(std::make_pair("include_ext_trusted_friends_metadata", "true"));**/
     query_params.push_back(std::make_pair("count", "40"));
     query_params.push_back(std::make_pair("send_error_codes", "true"));
     query_params.push_back(std::make_pair("q", search_query));
@@ -345,9 +320,10 @@ string to_human_dt(int time) {
 }
 
 
+
 // function that saves tweets from a given date to a given date
 
-void do_thread(string search_query, string from_date, string to_date) {
+void do_parent_thread(string search_query, string from_date, string to_date) {
 
     cout << "\x1B[36m" << "Threading Scanning [" << search_query << "] from [" << from_date << "] to [" << to_date << "]\033[0m\n" << endl;
 
@@ -402,29 +378,9 @@ int main() {
     std::string from_date = "2020-01-01";
     std::string to_date = get_current_date();
 
-    do_thread(search_query, from_date, to_date);
+    do_parent_thread(search_query, from_date, to_date);
     return 0;
 }
-
-
-
-
-/* 
-TODO:
-
-- Update create_url_params function to use char list instead of string https://www.geeksforgeeks.org/methods-to-concatenate-string-in-c-c-with-examples/
-- LIBCURL Optimizations as saved on bookmarks
-- Checkout cursor placement, do we get more results from using scroll:CURSOR
-
-            //ALSO GET TWEET COUNT AS METRIC
-            // GET TWEEET METRICS 
-
-            //LOAD USERS DATA
-
-
-
-            // CHANGE scan_date_to to use current date
-*/
 
 
 
